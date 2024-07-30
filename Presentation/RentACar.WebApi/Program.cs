@@ -9,6 +9,7 @@ using RentACar.Application.Interfaces.CarInterfaces;
 using RentACar.Persistence.Context;
 using RentACar.Persistence.Repositories;
 using RentACar.Persistence.Repositories.CarRepositories;
+using RentACar.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,7 @@ builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
 
+builder.Services.AddApplicationService(builder.Configuration);
 #endregion
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

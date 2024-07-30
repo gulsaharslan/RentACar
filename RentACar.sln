@@ -5,17 +5,21 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{753B706A-8210-48DB-9F71-56A5824742C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Domain", "Core\RentACar.Domain\RentACar.Domain.csproj", "{7C5583EA-9E01-44E0-818B-33D50374F9E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Domain", "Core\RentACar.Domain\RentACar.Domain.csproj", "{7C5583EA-9E01-44E0-818B-33D50374F9E7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{2B90032B-1416-4A0B-A4F3-D3117C844AE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Persistence", "Infrastructure\RentACar.Persistence\RentACar.Persistence.csproj", "{020F7D52-91E3-4B45-85F5-072F75DAEEB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Persistence", "Infrastructure\RentACar.Persistence\RentACar.Persistence.csproj", "{020F7D52-91E3-4B45-85F5-072F75DAEEB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B5218010-A310-4BA4-AA0C-A4E5BF478D9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.WebApi", "Presentation\RentACar.WebApi\RentACar.WebApi.csproj", "{F324FE73-0A5A-4725-8D04-38DBB3617527}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.WebApi", "Presentation\RentACar.WebApi\RentACar.WebApi.csproj", "{F324FE73-0A5A-4725-8D04-38DBB3617527}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Application", "Core\RentACar.Application\RentACar.Application.csproj", "{C53F5DBA-876E-4548-A79C-B219FAC2C789}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Application", "Core\RentACar.Application\RentACar.Application.csproj", "{C53F5DBA-876E-4548-A79C-B219FAC2C789}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{2B40F18A-6AD4-4589-95C6-5414A76EDEDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.WebUI", "Frontends\RentACar.WebUI\RentACar.WebUI.csproj", "{72A89356-A72C-47EA-B0D0-B4FCC983B4E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,10 @@ Global
 		{C53F5DBA-876E-4548-A79C-B219FAC2C789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53F5DBA-876E-4548-A79C-B219FAC2C789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C53F5DBA-876E-4548-A79C-B219FAC2C789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A89356-A72C-47EA-B0D0-B4FCC983B4E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A89356-A72C-47EA-B0D0-B4FCC983B4E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A89356-A72C-47EA-B0D0-B4FCC983B4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A89356-A72C-47EA-B0D0-B4FCC983B4E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{020F7D52-91E3-4B45-85F5-072F75DAEEB8} = {2B90032B-1416-4A0B-A4F3-D3117C844AE8}
 		{F324FE73-0A5A-4725-8D04-38DBB3617527} = {B5218010-A310-4BA4-AA0C-A4E5BF478D9C}
 		{C53F5DBA-876E-4548-A79C-B219FAC2C789} = {753B706A-8210-48DB-9F71-56A5824742C7}
+		{72A89356-A72C-47EA-B0D0-B4FCC983B4E3} = {2B40F18A-6AD4-4589-95C6-5414A76EDEDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1EC49BE0-BE98-41C9-ADB6-E25771CFC0F7}
