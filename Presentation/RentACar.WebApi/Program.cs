@@ -18,6 +18,8 @@ using RentACar.Persistence.Repositories.CarPricingRepositories;
 using RentACar.Application.Features.Mediator.Handlers.CarPricingHandlers;
 using RentACar.Application.Interfaces.TagCloudInterfaces;
 using RentACar.Persistence.Repositories.TagCloudRepositories;
+using RentACar.Application.Features.RepositoryPattern;
+using RentACar.Persistence.Repositories.CommentRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,7 @@ builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
 builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
 builder.Services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
 builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
 
 builder.Services.AddScoped<GetAboutQueryHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();

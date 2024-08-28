@@ -1,0 +1,61 @@
+﻿@model List<ResultCarWithBrandDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Araç Listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Araçlar ile ilgili Ekleme, Silme, Güncelleme işlerimlerini yapabilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Marka</th>
+                                        <th>Model</th>
+                                        <th>Vites</th>
+                                        <th>Km</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <th scope="row">@count</th>
+                                            <td>@item.brandName</td>
+                                            <td>@item.model</td>
+                                            <td>@item.transmission</td>
+                                            <td>@item.km</td>
+                                            <td>
+                                                <a href="/Admin/AdminCar/RemoveCar/@item.carID" class="btn btn-outline-danger">Sil</a>
+                                                <a href="/AdminCar/UpdateCar/@item.carID" class="btn btn-outline-success">Güncelle</a>
+                                                <a href="/Admin/CarList/CarDetail/@item.carID" class="btn btn-outline-warning">Sitede Gör</a>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                            <a href="/Admin/AdminCar/CreateCar/" class="btn btn-outline-primary">Yeni Araç Girişi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
