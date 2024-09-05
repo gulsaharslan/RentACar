@@ -77,5 +77,48 @@ namespace RentACar.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        [Route("UpdateCar/{id}")]
+        public async Task<IActionResult> UpdateCar(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            var responseMessage1 = await client.GetAsync("https://localhost:7055/api/Brands");
+            var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
+            var values1 = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData1);
+            List<SelectListItem> brandValues = (from x in values1
+                                                select new SelectListItem
+                                                {
+                                                    Text = x.name,
+                                                    Value = x.brandID.ToString()
+                                                }).ToList();
+            ViewBag.BrandValues = brandValues;
+
+
+            var resposenMessage = await client.GetAsync($"https://localhost:7055/api/Cars/{id}");
+            if (resposenMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await resposenMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateCarDto>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+        
+        [HttpPost]
+        [Route("UpdateCar/{id}")]
+        public async Task<IActionResult> UpdateCar(UpdateCarDto updateCarDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateCarDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("https://localhost:7055/api/Cars/", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "AdminCar", new { area = "Admin" });
+            }
+            return View();
+        }
     }
 }
