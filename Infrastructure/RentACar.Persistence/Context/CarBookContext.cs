@@ -34,5 +34,6 @@ namespace RentACar.Persistence.Context
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<TagCloud> TagClouds { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<RentACar.Domain.Entities.RentACar> RentACars { get; set; }
     }
 }

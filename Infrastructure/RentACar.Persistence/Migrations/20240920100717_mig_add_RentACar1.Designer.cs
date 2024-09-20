@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentACar.Persistence.Context;
 
@@ -11,9 +12,11 @@ using RentACar.Persistence.Context;
 namespace RentACar.Persistence.Migrations
 {
     [DbContext(typeof(CarBookContext))]
-    partial class CarBookContextModelSnapshot : ModelSnapshot
+    [Migration("20240920100717_mig_add_RentACar1")]
+    partial class mig_add_RentACar1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -355,31 +358,6 @@ namespace RentACar.Persistence.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("RentACar.Domain.Entities.Customer", b =>
-                {
-                    b.Property<int>("CustomerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
-
-                    b.Property<string>("CustomerMail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerSurname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustomerID");
-
-                    b.ToTable("Customer");
-                });
-
             modelBuilder.Entity("RentACar.Domain.Entities.Feature", b =>
                 {
                     b.Property<int>("FeatureID")
@@ -484,58 +462,6 @@ namespace RentACar.Persistence.Migrations
                     b.HasIndex("LocationID");
 
                     b.ToTable("RentACars");
-                });
-
-            modelBuilder.Entity("RentACar.Domain.Entities.RentACarProcess", b =>
-                {
-                    b.Property<int>("RentACarProcessID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentACarProcessID"));
-
-                    b.Property<int>("CarID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DropOffDate")
-                        .HasColumnType("Date");
-
-                    b.Property<string>("DropOffDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DropOffLocation")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("DropOffTime")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("PickUpDate")
-                        .HasColumnType("Date");
-
-                    b.Property<string>("PickUpDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PickUpLocation")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("PickUpTime")
-                        .HasColumnType("time");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("RentACarProcessID");
-
-                    b.HasIndex("CarID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.ToTable("RentACarProcess");
                 });
 
             modelBuilder.Entity("RentACar.Domain.Entities.Service", b =>
@@ -748,25 +674,6 @@ namespace RentACar.Persistence.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("RentACar.Domain.Entities.RentACarProcess", b =>
-                {
-                    b.HasOne("RentACar.Domain.Entities.Car", "Car")
-                        .WithMany("RentACarProcesses")
-                        .HasForeignKey("CarID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RentACar.Domain.Entities.Customer", "Customer")
-                        .WithMany("RentACarProcesses")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("RentACar.Domain.Entities.TagCloud", b =>
                 {
                     b.HasOne("RentACar.Domain.Entities.Blog", "Blog")
@@ -798,19 +705,12 @@ namespace RentACar.Persistence.Migrations
 
                     b.Navigation("CarPricings");
 
-                    b.Navigation("RentACarProcesses");
-
                     b.Navigation("RentACars");
                 });
 
             modelBuilder.Entity("RentACar.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Blogs");
-                });
-
-            modelBuilder.Entity("RentACar.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("RentACarProcesses");
                 });
 
             modelBuilder.Entity("RentACar.Domain.Entities.Feature", b =>
