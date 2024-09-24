@@ -1,4 +1,5 @@
-﻿using RentACar.Domain.Entities;
+﻿using RentACar.Application.ViewModels;
+using RentACar.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace RentACar.Application.Interfaces.CarPricingInterfaces
 	public interface ICarPricingRepository
 	{
 		List<CarPricing> GetCarPricingWithCar();
+		List<CarPricingViewModel> GetCarPricingWithTimePeriod();
 	}
 }
