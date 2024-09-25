@@ -1,16 +1,17 @@
-﻿
+﻿@model List<ResultCommentDto>
+
 <ul class="comment-list">
 
-
+    @foreach(var item in Model)
     {
         <li class="comment">
             <div class="vcard bio">
-                <img src="~/carbook-master/images/person_1.jpg" alt="Image placeholder">
+                <img src="~/carbook-master/images/person.jpg" alt="Image placeholder">
             </div>
             <div class="comment-body">
-                <h3>sfsd</h3>
-                <div class="meta">15165</div>
-                <p>sdfsd</p>
+                <h3>@item.name</h3>
+                <div class="meta">@(((DateTime)item.createdDate).ToString("dd-MMM-yyyy"))</div>
+                <p>@item.description</p>
             </div>
         </li>
     }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.Features.Mediator.Commands.CommentCommands;
 using RentACar.Application.Features.RepositoryPattern;
 using RentACar.Domain.Entities;
 
@@ -61,5 +62,19 @@ namespace RentACar.WebApi.Controllers
             return Ok(value);
         }
 
+        [HttpGet("CommentCountByBlog")]
+        public IActionResult GetCountCommentByBlog(int id)
+        {
+            var value = _commentsRepository.GetCountCommentByBlog(id);
+            return Ok(value);
+        }
+
+        [HttpPost("CreateCommentWithMediator")]
+
+        public async Task<IActionResult> CreateCommentWithMediator(CreateCommentCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok("Yorum başarıyla eklendi");
+        }
     }
 }

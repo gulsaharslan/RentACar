@@ -24,6 +24,9 @@ using RentACar.Application.Interfaces.StatisticsInterfaces;
 using RentACar.Persistence.Repositories.StatisticsRepositories;
 using RentACar.Application.Interfaces.RentACarInterfaces;
 using RentACar.Persistence.Repositories.RentACarRepositories;
+using RentACar.Application.Features.Mediator.Handlers.CommandHandlers;
+using RentACar.Application.Interfaces.CarFeatureInterfaces;
+using RentACar.Persistence.Repositories.CarFeatureRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +44,7 @@ builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepositor
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
 builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
 builder.Services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
+builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
 
 builder.Services.AddScoped<GetAboutQueryHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();
@@ -79,6 +83,8 @@ builder.Services.AddScoped<GetContactByIdQueryHandler>();
 builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
+
+builder.Services.AddScoped<CreateCommentCommandHandler>();
 
 
 builder.Services.AddScoped<GetCarPricingWithCarQueryHandler>();

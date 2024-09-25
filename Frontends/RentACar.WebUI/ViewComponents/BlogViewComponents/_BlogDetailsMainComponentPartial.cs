@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RentACar.Dto.BlogDtos;
 
 namespace RentACar.WebUI.ViewComponents.BlogViewComponents
@@ -22,7 +23,6 @@ namespace RentACar.WebUI.ViewComponents.BlogViewComponents
                 return View(values);
             }
             return View();
-
         }
     }
 }
