@@ -5,6 +5,8 @@
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
+
+
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
@@ -22,7 +24,8 @@
                             </div>
                             <p class="d-flex mb-0 d-block">
                                 <a href="/Reservation/Index/@item.CarId" class="btn btn-primary py-2 mr-1">Hemen Kirala</a>
-                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal1-@item.CarId">Detaylar</a>
+                                <a href="#" class="btn btn-success py-2 mr-1" data-toggle="modal" data-target="#Modal1-@item.CarId">Özellikler</a>
+                                <a href="/Car/CarDetail/@item.CarId" class="btn btn-secondary py-2 mr-1">Detaylar</a>
                             </p>
                         </div>
                     </div>
@@ -33,13 +36,14 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Araç Detayları</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="$('#Modal1-@item.CarId').modal('hide') aria-label="Close"></button>
+
                             </div>
                             <div class="modal-body">
                                 @await Component.InvokeAsync("_CarDetailMainCarFeatureComponentPartial", new { id = item.CarId }) 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#Modal1-@item.CarId').modal('hide')">Kapat</button>
                             </div>
                         </div>
                     </div>
