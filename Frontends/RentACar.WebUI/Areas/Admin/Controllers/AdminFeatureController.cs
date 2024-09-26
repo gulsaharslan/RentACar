@@ -63,8 +63,5 @@ namespace RentACar.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
-
-
-
     }
 }

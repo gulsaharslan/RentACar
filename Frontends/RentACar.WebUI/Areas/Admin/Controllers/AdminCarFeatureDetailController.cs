@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACar.Dto.CarFeatureDtos;
+using RentACar.Dto.FeatureDtos;
 
 namespace RentACar.WebUI.Areas.Admin.Controllers
 {
@@ -27,5 +28,27 @@ namespace RentACar.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
+
+        [HttpPost]
+        [Route("Index/{id}")]
+        public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdDto> resultCarFeatureByCarIdDto)
+        {
+            foreach (var item in resultCarFeatureByCarIdDto)
+            {
+                if (item.Available)
+                {
+                    var client = _httpClientFactory.CreateClient();
+                    await client.GetAsync("https://localhost:7055/api/CarFeatures/CarFeatureChangeAvaiblableToTrue?id=" + item.CarFeatureID);
+                }
+                else
+                {
+                    var client = _httpClientFactory.CreateClient();
+                    await client.GetAsync("https://localhost:7055/api/CarFeatures/CarFeatureChangeAvaiblableToFalse?id=" + item.CarFeatureID);
+                }
+            }
+            return RedirectToAction("Index", "AdminCar");
+        }
+
+       
     }
 }
