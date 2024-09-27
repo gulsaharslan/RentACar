@@ -19,12 +19,10 @@ namespace RentACar.Persistence.Repositories.CarFeatureRepositories
             _context = context;
         }
 
-        public async void AddNewFeatureToAllCars(Feature feature)
+        public void AddNewFeatureToAllCars(Feature feature)
         {
-            await _context.Features.AddAsync(feature);
-            await _context.SaveChangesAsync();
 
-            var cars = await _context.Cars.ToListAsync();
+            var cars =  _context.Cars.ToList();
 
             foreach (var car in cars)
             {
@@ -34,10 +32,10 @@ namespace RentACar.Persistence.Repositories.CarFeatureRepositories
                     FeatureID = feature.FeatureID,
                     Available = false
                 };
-                await _context.CarFeatures.AddAsync(carFeature);
+                 _context.CarFeatures.Add(carFeature);
             }
 
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public void ChangeCarFeatureAvailableToFalse(int id)

@@ -1,5 +1,8 @@
-﻿using RentACar.Application.Features.CQRS.Commands.CarCommands;
+﻿using MediatR;
+using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Interfaces;
+using RentACar.Application.Interfaces.CarFeatureInterfaces;
+using RentACar.Application.Interfaces.CarInterfaces;
 using RentACar.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,13 +15,15 @@ namespace RentACar.Application.Features.CQRS.Handlers.CarHandlers
     public class CreateCarCommandHandler
     {
         private readonly IRepository<Car> _repository;
-        public CreateCarCommandHandler(IRepository<Car> repository)
+        private readonly ICarRepository _carRepository;
+        public CreateCarCommandHandler(IRepository<Car> repository, ICarRepository carRepository)
         {
             _repository = repository;
+            _carRepository = carRepository;
         }
         public async Task Handle(CreateCarCommand command)
         {
-            await _repository.CreateAsync(new Car
+          var car = new Car
             {
                 BigImageUrl = command.BigImageUrl,
                 Luggage = command.Luggage,
@@ -29,7 +34,11 @@ namespace RentACar.Application.Features.CQRS.Handlers.CarHandlers
                 CoverImageUrl = command.CoverImageUrl,
                 BrandID = command.BrandID,
                 Fuel = command.Fuel
-            });
+          };
+
+            await _repository.CreateAsync(car);
+
+            _carRepository.AddAllFeaturesToNewCar(car);
         }
     }
 }

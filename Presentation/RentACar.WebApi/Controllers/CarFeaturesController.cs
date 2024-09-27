@@ -38,11 +38,6 @@ namespace RentACar.WebApi.Controllers
             return Ok("Güncelleme yapıldı");
         }
 
-        [HttpPost("AddNewFeature")]
-        public async Task<IActionResult> AddNewFeatureToAllCars(CreateFeatureWithCarFeaturesCommand command)
-        {
-            await _mediator.Send(command);
-            return Ok("Yeni özellik eklendi");
-        }
+       
     }
 }
