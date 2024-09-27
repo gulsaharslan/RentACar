@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.Features.Mediator.Commands.ReviewCommands;
 using RentACar.Application.Features.Mediator.Queries.ReviewQueries;
+using RentACar.Application.Validators.ReviewValidator;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -20,6 +22,17 @@ namespace RentACar.WebApi.Controllers
 		{
 			var values = await _mediator.Send(new GetReviewByCarIdQuery(id));
 			return Ok(values);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateReview(CreateReviewCommand command)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+			await _mediator.Send(command);
+			return Ok("Ekleme işlemi gerçekleşti");
 		}
 
 	}
