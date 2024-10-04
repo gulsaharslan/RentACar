@@ -153,7 +153,7 @@ namespace RentACar.WebUI.Areas.Admin.Controllers
             #endregion
 
             #region İstatistik12
-            var responseMessage12 = await client.GetAsync("https://localhost:7055/api/Statistics/GetCarCountByKmSmallerThen1000");
+            var responseMessage12 = await client.GetAsync("https://localhost:7055/api/Statistics/GetCarCountByKmLessThan1000");
             if (responseMessage12.IsSuccessStatusCode)
             {
                 int carCountByKmSmallerThen1000Random = random.Next(0, 101);

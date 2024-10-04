@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using NuGet.Common;
@@ -7,6 +8,7 @@ using System.Net.Http.Headers;
 
 namespace RentACar.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
 		private readonly IHttpClientFactory _httpClientFactory;
@@ -14,29 +16,33 @@ namespace RentACar.WebUI.Controllers
 		{
 			_httpClientFactory = httpClientFactory;
 		}
-		[HttpGet]
-		public async Task< IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
-            if (token != null) { 
-                var client = _httpClientFactory.CreateClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var responseMessage = await client.GetAsync("https://localhost:7055/api/Locations");
+            var client = _httpClientFactory.CreateClient();
 
-			var jsonData = await responseMessage.Content.ReadAsStringAsync();
-			var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
-			List<SelectListItem> values2 = (from x in values
-											select new SelectListItem
-											{
-												Text = x.Name,
-												Value = x.LocationId.ToString()
-											}).ToList();
-			ViewBag.v = values2;
+            // Call the API to get locations
+            var responseMessage = await client.GetAsync("https://localhost:7055/api/Locations");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+
+                // Create the SelectListItems from the locations
+                List<SelectListItem> values2 = (from x in values
+                                                select new SelectListItem
+                                                {
+                                                    Text = x.Name,
+                                                    Value = x.LocationId.ToString()
+                                                }).ToList();
+                ViewBag.v = values2;
             }
-            return View();
-		}
 
-		[HttpPost]
+            return View();
+        }
+
+        [HttpPost]
 		public IActionResult Index(string book_pick_date, string book_off_date, string time_pick, string time_off, string locationID)
 		{
 			TempData["bookpickdate"] = book_pick_date;

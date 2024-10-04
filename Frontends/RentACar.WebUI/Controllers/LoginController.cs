@@ -30,6 +30,7 @@ namespace RentACar.WebUI.Controllers
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7055/api/Logins", content);
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -55,12 +56,33 @@ namespace RentACar.WebUI.Controllers
                         };
 
                         await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), autProps);
+
+                        // Kullanıcının rolünü kontrol ediyoruz
+                        if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
+                        {
+                            return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
+                        }
+
+                        // Eğer admin değilse default sayfasına yönlendirme
                         return RedirectToAction("Index", "Default");
                     }
                 }
-               
             }
+
+            // Eğer giriş başarısızsa aynı sayfayı geri döndürür
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            // Kullanıcının oturumunu sonlandırma
+            await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+
+            // Çıkış yaptıktan sonra login sayfasına yönlendirme
+            return RedirectToAction("Index", "Login");
         }
     }
 }
+   
+

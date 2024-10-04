@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACar.Dto.BlogDtos;
 using RentACar.Dto.CommentDtos;
@@ -47,9 +48,12 @@ namespace RentACar.WebUI.Controllers
             return PartialView();
         }
 
+        [Authorize(Roles ="Member")]
         [HttpPost]
         public async Task<IActionResult> AddComment(CreateCommentDto createCommentDto)
         {
+
+            // Kullanıcı giriş yapmışsa yorumu ekle
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCommentDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");

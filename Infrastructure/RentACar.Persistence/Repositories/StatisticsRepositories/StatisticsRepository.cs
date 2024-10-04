@@ -106,7 +106,7 @@ namespace RentACar.Persistence.Repositories.StatisticsRepositories
 
         public int GetCarCountByFuelElectric()
         {
-            var value = _context.Cars.Where(x => x.Fuel == "Elektrik").Count();
+            var value = _context.Cars.Where(x => x.Fuel == "Hibrit").Count();
             return value;
         }
 
@@ -118,7 +118,7 @@ namespace RentACar.Persistence.Repositories.StatisticsRepositories
 
         public int GetCarCountByKmLessThan1000()
         {
-            var value = _context.Cars.Where(x => x.Km <= 1000).Count();
+            var value = _context.Cars.Where(x => x.Km <= 10000).Count();
             return value;
         }
 
