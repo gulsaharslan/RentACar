@@ -1,0 +1,112 @@
+﻿@model List<ResultReservationDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Rezervasyon Listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Rezervasyonlarla ilgili görüntüleme ve onaylama işlemlerini gerçekleştirebilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Ad Soyad</th>
+                                        <th>Email</th>
+                                        <th>Telefon</th>
+                                        <th>Yaş</th>
+                                        <th>Ehliyet Yaşı</th>
+                                        <th>Alınacak Lokasyon</th>
+                                        <th>Teslim Lokasyon</th>
+                                        <th>Açıklama</th>
+                                        <th>Araç Model</th>
+                                        <th>Rezervasyonu Onayla</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.Name @item.Surname</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.Age</td>
+                                            <td>@item.DriverLicenseYear</td>
+                                            <td>@item.PickUpLocationName</td>
+                                            <td>@item.DropOffLocationName</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.CarModel</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-success approve-btn" id="approve-@item.ReservationID" @(item.IsApproved ? "disabled" : "")
+                                                        data-reservation-id="@item.ReservationID" onclick="approve(this,@item.ReservationID)">
+                                                    @(item.IsApproved ? "Onaylandı" : "Onayla")
+                                                </button>
+                                                <button id="disapprove-@item.ReservationID" class="btn btn-outline-danger disapprove-btn mt-2
+                                                         @(item.IsApproved ? "" : "d-none")"
+                                                        data-reservation-id="@item.ReservationID" onclick="disapprove(this,@item.ReservationID)">
+                                                    Onayı Kaldır
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function approve(button, reservationId) {
+        $(button).text('Onaylandı');
+        $(button).prop('disabled', true);
+        $('#disapprove-' + reservationId).removeClass('d-none');
+
+        $.ajax({
+            url: 'https://localhost:7055/api/Reservations/approve/' + reservationId, // API endpoint'i
+            type: 'POST',
+            success: function () {
+                swal("Başarılı!", "Rezervasyon onaylandı", "success");
+            },
+            error: function () {
+                swal("", "İşlem başarısız", "error");
+            }
+        });
+    }
+
+    function disapprove(button, reservationId) {
+        $('#approve-' + reservationId).text('Onayla');
+        $('#approve-' + reservationId).prop('disabled', false);
+
+        $(button).addClass('d-none');
+
+        $.ajax({
+            url: 'https://localhost:7055/api/Reservations/disapprove/' + reservationId,
+            type: 'POST',
+            success: function () {
+                swal("Başarılı!", "Rezervasyon onayı kaldırıldı", "success");
+            },
+            error: function () {
+                swal("", "İşlem başarısız", "error");
+            }
+        });
+    }</script>

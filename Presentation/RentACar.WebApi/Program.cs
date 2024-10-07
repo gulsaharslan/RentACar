@@ -38,6 +38,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RentACar.Application.Tools;
 using RentACar.WebApi.Hubs;
+using RentACar.Application.Interfaces.ReservationInterfaces;
+using RentACar.Persistence.Repositories.ReservationRepositories;
+using RentACar.Application.Interfaces.MailServiceInterfaces;
+using RentACar.Persistence.Repositories.MailServiceRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
@@ -67,7 +71,9 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepositor
 builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
 builder.Services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
 builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
+builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
+builder.Services.AddScoped(typeof(IMailServiceRepository), typeof(MailServiceRepository));
 
 builder.Services.AddScoped<GetAboutQueryHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();

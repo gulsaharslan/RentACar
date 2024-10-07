@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RentACar.Dto.CommentDtos;
+using RentACar.Dto.BlogDtos;
+using RentACar.Dto.ReservationDtos;
 
 namespace RentACar.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminComment")]
-    public class AdminCommentController : Controller
+    [Route("Admin/AdminRezervation")]
+    public class AdminRezervationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public AdminCommentController(IHttpClientFactory httpClientFactory)
+        public AdminRezervationController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index/{id}")]
-        public async Task<IActionResult> Index(int id)
+        [Route("Index")]
+        public async Task<IActionResult> Index()
         {
-            ViewBag.v = id;
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7055/api/Comments/CommentListByBlog?id=" + id);
+            var responseMessage = await client.GetAsync("https://localhost:7055/api/Reservations");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCommentDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultReservationDto>>(jsonData);
                 return View(values);
             }
             return View();
