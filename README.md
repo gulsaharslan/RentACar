@@ -25,7 +25,7 @@ RentACar projesi, bir araç kiralama sistemi geliştirmek için tasarlanmış ol
 ## Ekran Görüntüleri
 
 UI Anasayfa
-![UI Anasayfa](https://r.resimlink.com/DGoZl.jpg)
+![UI Anasayfa](https://r.resimlink.com/1Nt2_UBFnJT.jpg)
 
 Araç Özellikleri
 ![Araç Özellikleri](https://r.resimlink.com/fCgzxPduli_.jpg)
